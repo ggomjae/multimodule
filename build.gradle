@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
     }
 }
 
@@ -50,3 +51,8 @@ dependencies {
     compile project(':statistics')
 }
 
+project(':statistics') {
+    dependencies {
+        compile project(':module-batch')
+    }
+}
