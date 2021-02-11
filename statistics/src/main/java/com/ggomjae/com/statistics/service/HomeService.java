@@ -1,7 +1,7 @@
 package com.ggomjae.com.statistics.service;
 
-import com.ggomjae.com.db.domain.Post;
-import com.ggomjae.com.db.domain.PostRepository;
+import com.ggomjae.com.db.domain.post.Post;
+import com.ggomjae.com.db.domain.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

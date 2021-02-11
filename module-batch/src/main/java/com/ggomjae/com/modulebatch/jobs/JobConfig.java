@@ -1,7 +1,9 @@
 package com.ggomjae.com.modulebatch.jobs;
 
-import com.ggomjae.com.db.domain.Post;
-import com.ggomjae.com.db.domain.PostRepository;
+import com.ggomjae.com.db.domain.newpost.NewPost;
+import com.ggomjae.com.db.domain.newpost.NewPostRepository;
+import com.ggomjae.com.db.domain.post.Post;
+import com.ggomjae.com.db.domain.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Configuration
 public class JobConfig {
+
+    private final NewPostRepository newPostRepository;
     private final PostRepository postRepository;
 
     @Bean
@@ -33,7 +37,7 @@ public class JobConfig {
     @Bean
     public Step postJobStep(StepBuilderFactory stepBuilderFactory) {
         return stepBuilderFactory.get("postJobStep")
-                .<Post, Post> chunk(10)
+                .<Post, NewPost> chunk(10)
                 .reader(this.postJobReader())
                 .processor(this.postJobProcessor())
                 .writer(this.postJobWriter())
@@ -47,28 +51,24 @@ public class JobConfig {
         System.out.println("----------Reader----------");
         System.out.println(posts);
 
-        List<Post> newPosts = new ArrayList<>();
-        for (Post post : posts) {
-            if(post.getPno() == 1L){
-                newPosts.add(post);
-            }
-        }
-        System.out.println(newPosts);
-        return new ListItemReader<>(newPosts);
+        return new ListItemReader<>(posts);
     }
 
-    public ItemProcessor<Post, Post> postJobProcessor() {
+    public ItemProcessor<Post, NewPost> postJobProcessor() {
 
-        return new ItemProcessor<Post, Post>() {
+        return new ItemProcessor<Post, NewPost>() {
+
             @Override
-            public Post process(Post post){
-                return post;
+            public NewPost process(Post post){
+                return NewPost.builder()
+                        .title(post.getTitle())
+                        .build();
             }
         };
     }
 
-    public ItemWriter<Post> postJobWriter() {
-        return ((List<? extends Post> posts) ->
-                postRepository.saveAll(posts));
+    public ItemWriter<NewPost> postJobWriter() {
+        return ((List<? extends NewPost> newPosts) ->
+                newPostRepository.saveAll(newPosts));
     }
 }

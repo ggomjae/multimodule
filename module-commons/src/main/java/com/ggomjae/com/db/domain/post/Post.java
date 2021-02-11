@@ -1,4 +1,4 @@
-package com.ggomjae.com.db.domain;
+package com.ggomjae.com.db.domain.post;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -19,8 +19,20 @@ public class Post {
     @Column(length = 500, nullable = false)
     private String title;
 
+    @Column
+    private boolean status;
+
     @Builder
     public Post(String title){
         this.title = title;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        this.status = false;
+    }
+
+    public boolean getStatus(){
+        return this.status;
     }
 }
