@@ -14,5 +14,4 @@ public class StatisticsApplication {
         System.out.println("-------------Statistics----------------");
         SpringApplication.run(StatisticsApplication.class, args);
     }
-
 }
