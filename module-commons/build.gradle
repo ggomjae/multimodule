@@ -6,6 +6,6 @@ bootJar {
 }
 
 dependencies {
-    compile project(':module-commons')
+    //
 }
 

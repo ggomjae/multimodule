@@ -1,2 +1,2 @@
 rootProject.name = 'multiproject'
-include ':module-batch', ':statistics'
+include ':module-batch', ':statistics', ':module-commons'
