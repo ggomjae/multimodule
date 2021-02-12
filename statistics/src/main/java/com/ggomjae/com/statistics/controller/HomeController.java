@@ -17,7 +17,13 @@ public class HomeController {
     @GetMapping("/hello")
     public String homeMethod(Map model){
         model.put("message", "hello freemarker!");
-        return "hello";
+        return "common/hello";
+    }
+
+    @GetMapping("/statistic")
+    public String statisticMethod(Map model){
+        model.put("message", "hello freemarker!");
+        return "statisticsResult";
     }
 
     @PostMapping("/posts")
