@@ -31,6 +31,12 @@ public class HomeController {
         return "pieView";
     }
 
+    @GetMapping(path="/excel", produces = "application/vnd.ms-excel")
+    public String downloadExcel() {
+
+        return "sampleXls";
+    }
+
     @PostMapping("/posts")
     public void createPost(){
 

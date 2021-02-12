@@ -11,6 +11,7 @@
 <div class="chart-div">
     <canvas id="pieChartCanvas" width="300px" height="300px"></canvas>
 </div>
+<a href="/excel">엑셀 다운로드</a>
 </body>
 <script>
     // ------> https://mebadong.tistory.com/20 참고하기

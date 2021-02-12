@@ -8,5 +8,6 @@ bootJar {
 dependencies {
     compile project(':module-commons')
     implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
 }
 
