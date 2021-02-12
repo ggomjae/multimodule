@@ -26,6 +26,11 @@ public class HomeController {
         return "statisticsResult";
     }
 
+    @GetMapping("/pie")
+    public String pieMethod(){
+        return "pieView";
+    }
+
     @PostMapping("/posts")
     public void createPost(){
 
