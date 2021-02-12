@@ -7,5 +7,6 @@ bootJar {
 
 dependencies {
     compile project(':module-commons')
+    implementation 'org.springframework.boot:spring-boot-starter-freemarker'
 }
 
