@@ -25,17 +25,19 @@ public class JobConfig {
 
     private final NewPostRepository newPostRepository;
     private final PostRepository postRepository;
+    private final StepBuilderFactory stepBuilderFactory;
+    private final JobBuilderFactory jobBuilderFactory;
 
     @Bean
-    public Job postJob(JobBuilderFactory jobBuilderFactory, Step postJobStep) {
+    public Job postJob() {
         return jobBuilderFactory.get("postJob")
                 .preventRestart()
-                .start(postJobStep)
+                .start(postJobStep())
                 .build();
     }
 
     @Bean
-    public Step postJobStep(StepBuilderFactory stepBuilderFactory) {
+    public Step postJobStep() {
         return stepBuilderFactory.get("postJobStep")
                 .<Post, NewPost> chunk(10)
                 .reader(this.postJobReader())
