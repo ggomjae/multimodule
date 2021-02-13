@@ -48,11 +48,18 @@ repositories {
 
 dependencies {
     compile project(':module-batch')
+    compile project(':module-batch-quartz')
     compile project(':statistics')
     compile project(':module-commons')
 }
 
 project(':module-batch') {
+    dependencies {
+        compile project(':module-commons')
+    }
+}
+
+project(':module-batch-quartz') {
     dependencies {
         compile project(':module-commons')
     }
