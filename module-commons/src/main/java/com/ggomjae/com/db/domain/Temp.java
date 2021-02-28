@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @NoArgsConstructor
@@ -17,5 +18,8 @@ public class Temp {
 
     @Column
     private boolean status;
+
+    @Column
+    private Timestamp date;
 
 }

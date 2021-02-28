@@ -1,10 +1,12 @@
 package com.ggomjae.com.db.domain.post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Getter
 @NoArgsConstructor
@@ -22,9 +24,13 @@ public class Post {
     @Column
     private boolean status;
 
+    @Column
+    private Timestamp date;
+
     @Builder
-    public Post(String title){
+    public Post(String title,Timestamp date){
         this.title = title;
+        this.date = date;
     }
 
     @PrePersist

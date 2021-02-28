@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class HomeController {
     }
 
     @PostMapping("/posts")
-    public void createPost(){
+    public void createPost() throws ParseException {
 
         homeService.createPost();
     }
