@@ -18,31 +18,14 @@ uartzJobLauncher : 파라미터를 기반으로 Spring Batch의 Job을 구동시
 1.JobRegistryBeanPostProcessor
 2.JobDetailFactoryBean - QuartzJobLauncher.class를 setting 함
 3.CronTriggerFactoryBean
-4.SchedulerFactoryBean
-
-import org.springframework.batch.core.configuration.JobLocator
-import org.springframework.batch.core.launch.JobLauncher
-
-JobLocator, JobLauncher를 2번인 JobDetailFactoryBean[QuartzJob] 에서 셋팅을 해줌
-@Bean
-    public JobDetailFactoryBean jobDetailFactoryBean() {
-        JobDetailFactoryBean jobDetailFactoryBean = new JobDetailFactoryBean();
-        jobDetailFactoryBean.setJobClass(QuartzJobLauncher.class);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("jobName", "testJob");
-        map.put("jobLauncher", jobLauncher);
-        map.put("jobLocator", jobLocator);
-
-        jobDetailFactoryBean.setJobDataAsMap(map);
-
-        return jobDetailFactoryBean;
-    }
+4.SchedulerFactoryBean - SchedulerFactoryBean은 Bean으로 선언하여 다른 클래스에서 DI (dependency injection)해서 사용
 
 ```
 
 [QuartzJobLauncher.java]
 ```
 QuartzJobBean을 extends 하게 되면 executeInternal 메서드를 오버라이드 하게 되어있습니다
+스케쥴러에 의해 Job 클래스가 호출되었을 때 해당 메서드가 실행되는 거죠. 
 ```
 <div>
     <img align="left" width="100%" src = "https://user-images.githubusercontent.com/43604493/109496515-180b9600-7ad4-11eb-83d1-b9289362bece.PNG">
