@@ -49,11 +49,14 @@ public class QuartzJobLauncher extends QuartzJobBean {
     protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
         JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters();
 
+
+
         try {
             Job job = jobLocator.getJob(jobName);
             JobExecution jobExecution = jobLauncher.run(job, jobParameters);
-
-            System.out.println("########### Status: " + jobExecution.getStatus());
+            System.out.println("------------------------------------------");
+            System.out.println(jobExecution);
+            System.out.println("------------------------------------------");
 
         } catch(JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | NoSuchJobException  e) {

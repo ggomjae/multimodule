@@ -20,6 +20,8 @@ public class BatchConfiguration {
     private final StepBuilderFactory stepBuilderFactory;
     private final CustomItemReader customItemReader;
     private final CustomItemWriter customItemWriter;
+    private final ItemWriter2 itemWriter2;
+    private final ItemReader2 itemReader2;
 
     @Bean
     public Step step1() {
@@ -31,10 +33,28 @@ public class BatchConfiguration {
     }
 
     @Bean
+    public Step step2() {
+        return stepBuilderFactory.get("step2")
+                .<Object, Object> chunk(10)
+                .reader(itemReader2)
+                .writer(itemWriter2)
+                .build();
+    }
+
+    @Bean
     public Job testJob() {
         return jobBuilderFactory.get("testJob")
                 .incrementer(new RunIdIncrementer())
                 .flow(step1())
+                .end()
+                .build();
+    }
+
+    @Bean
+    public Job testJob2() {
+        return jobBuilderFactory.get("testJob2")
+                .incrementer(new RunIdIncrementer())
+                .flow(step2())
                 .end()
                 .build();
     }

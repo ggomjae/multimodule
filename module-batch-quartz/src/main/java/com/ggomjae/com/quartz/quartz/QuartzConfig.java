@@ -45,6 +45,20 @@ public class QuartzConfig {
     }
 
     @Bean
+    public JobDetailFactoryBean jobDetailFactoryBean2() {
+        JobDetailFactoryBean jobDetailFactoryBean = new JobDetailFactoryBean();
+        jobDetailFactoryBean.setJobClass(QuartzJobLauncher.class);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("jobName", "testJob2");
+        map.put("jobLauncher", jobLauncher);
+        map.put("jobLocator", jobLocator);
+
+        jobDetailFactoryBean.setJobDataAsMap(map);
+
+        return jobDetailFactoryBean;
+    }
+
+    @Bean
     public CronTriggerFactoryBean cronTriggerFactoryBean() {
         CronTriggerFactoryBean cronTriggerFactoryBean = new CronTriggerFactoryBean();
         cronTriggerFactoryBean.setJobDetail(jobDetailFactoryBean().getObject());
@@ -55,10 +69,19 @@ public class QuartzConfig {
     }
 
     @Bean
+    public CronTriggerFactoryBean cronTriggerFactoryBean2() {
+        CronTriggerFactoryBean cronTriggerFactoryBean = new CronTriggerFactoryBean();
+        cronTriggerFactoryBean.setJobDetail(jobDetailFactoryBean2().getObject());
+        //run every 10 seconds
+        cronTriggerFactoryBean.setCronExpression("*/20 * * * * ? *");
+
+        return cronTriggerFactoryBean;
+    }
+
+    @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
         SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
-        schedulerFactoryBean.setTriggers(cronTriggerFactoryBean().getObject());
-
+        schedulerFactoryBean.setTriggers(cronTriggerFactoryBean().getObject(),cronTriggerFactoryBean2().getObject());
         return schedulerFactoryBean;
     }
 }

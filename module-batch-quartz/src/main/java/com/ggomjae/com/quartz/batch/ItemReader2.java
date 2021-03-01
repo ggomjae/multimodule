@@ -7,11 +7,10 @@ import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomItemReader implements ItemReader<Object> {
-
+public class ItemReader2 implements ItemReader<Object> {
     @Override
     public Object read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        System.out.println("JOB1 READER#########################");
+        System.out.println("JOB2 READER#########################");
         return null;
     }
 }

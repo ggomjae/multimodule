@@ -28,7 +28,13 @@ QuartzJobBean을 extends 하게 되면 executeInternal 메서드를 오버라이
 스케쥴러에 의해 Job 클래스가 호출되었을 때 해당 메서드가 실행되는 거죠. 
 ```
 <div>
-    <img align="left" width="100%" src = "https://user-images.githubusercontent.com/43604493/109496515-180b9600-7ad4-11eb-83d1-b9289362bece.PNG">
+    <img align="left" width="100%" src = "https://user-images.githubusercontent.com/43604493/109511989-fbc52480-7ae6-11eb-93fe-e1ec3718031b.PNG">
 </div>
 
-사진 참고 : https://blog.kingbbode.com/38
+```aidl
+ quartz + batch 결과
+```
+<div>
+    <img align="left" width="100%" src = "https://user-images.githubusercontent.com/43604493/109510746-b7855480-7ae5-11eb-9cc5-bcdada66557a.PNG">
+</div>
+
