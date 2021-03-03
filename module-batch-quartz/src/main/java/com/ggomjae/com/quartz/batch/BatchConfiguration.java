@@ -8,11 +8,14 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.CompositeItemProcessor;
+import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,10 +28,11 @@ public class BatchConfiguration {
     private final StepBuilderFactory stepBuilderFactory;
     private final CustomItemReader customItemReader;
     private final CustomItemWriter customItemWriter;
-    private final ItemWriter2 itemWriter2;
     private final ItemReader2 itemReader2;
     private final ItemProcessor2 itemProcessor2;
     private final ItemProcessor1 itemProcessor1;
+    private final ItemWriter2 itemWriter2;
+    private final ItemWriter1 itemWriter1;
 
     @Bean
     public Step step1() {
@@ -45,7 +49,7 @@ public class BatchConfiguration {
                 .<List<List<String>>, List<String> >chunk(1)
                 .reader(itemReader2)
                 .processor(compositeProcessor())
-                .writer(itemWriter2)
+                .writer(compositeItemWriter())
                 .build();
     }
 
@@ -77,5 +81,12 @@ public class BatchConfiguration {
         processor.setDelegates(delegates);
 
         return processor;
+    }
+
+    @Bean
+    public CompositeItemWriter<List<String>> compositeItemWriter() {
+        CompositeItemWriter<List<String>> compositeItemWriter = new CompositeItemWriter<>();
+        compositeItemWriter.setDelegates(Arrays.asList(itemWriter1,itemWriter2));
+        return compositeItemWriter;
     }
 }

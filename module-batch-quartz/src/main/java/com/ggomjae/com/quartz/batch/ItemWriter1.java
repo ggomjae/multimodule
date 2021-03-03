@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ItemWriter2 implements ItemWriter<List<String>> {
+public class ItemWriter1 implements ItemWriter<List<String>> {
+
 
     @Override
     public void write(List<? extends List<String>> items) throws Exception {
-        System.out.println("writer2");
+        System.out.println("writer1");
+        return ;
     }
 }

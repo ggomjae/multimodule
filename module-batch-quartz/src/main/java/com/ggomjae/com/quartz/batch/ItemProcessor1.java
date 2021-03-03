@@ -15,6 +15,7 @@ public class ItemProcessor1 implements ItemProcessor<List<List<String>>, List<St
         System.out.println(item.size());
 
         List<String> a = new ArrayList<>();
+        a.add("aaa");
 
         return a;
     }
