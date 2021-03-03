@@ -11,7 +11,6 @@ public class ItemProcessor2 implements ItemProcessor<List<List<String>>,List<Str
 
     @Override
     public List<String> process(List<List<String>> item) throws Exception {
-
         System.out.println(item.size());
 
         List<String> a = new ArrayList<>();

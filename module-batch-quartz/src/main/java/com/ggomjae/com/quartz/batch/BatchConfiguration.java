@@ -7,9 +7,12 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +28,7 @@ public class BatchConfiguration {
     private final ItemWriter2 itemWriter2;
     private final ItemReader2 itemReader2;
     private final ItemProcessor2 itemProcessor2;
+    private final ItemProcessor1 itemProcessor1;
 
     @Bean
     public Step step1() {
@@ -40,7 +44,7 @@ public class BatchConfiguration {
         return stepBuilderFactory.get("step2")
                 .<List<List<String>>, List<String> >chunk(1)
                 .reader(itemReader2)
-                .processor(itemProcessor2)
+                .processor(compositeProcessor())
                 .writer(itemWriter2)
                 .build();
     }
@@ -61,5 +65,17 @@ public class BatchConfiguration {
                 .flow(step2())
                 .end()
                 .build();
+    }
+
+    @Bean
+    public CompositeItemProcessor compositeProcessor() {
+        List<ItemProcessor> delegates = new ArrayList<>(2);
+        delegates.add(itemProcessor1);
+        delegates.add(itemProcessor2);
+
+        CompositeItemProcessor processor = new CompositeItemProcessor<>();
+        processor.setDelegates(delegates);
+
+        return processor;
     }
 }
