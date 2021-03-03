@@ -7,8 +7,9 @@ import java.util.List;
 
 @Component
 public class ItemWriter2 implements ItemWriter<Object> {
+
     @Override
     public void write(List<? extends Object> arg0) throws Exception {
-
+        System.out.println(arg0.size());
     }
 }

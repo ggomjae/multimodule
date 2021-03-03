@@ -26,7 +26,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
-                .<Object, Object> chunk(10)
+                .<Object, Object> chunk(2)
                 .reader(customItemReader)
                 .writer(customItemWriter)
                 .build();
@@ -35,7 +35,7 @@ public class BatchConfiguration {
     @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .<Object, Object> chunk(10)
+                .chunk(1)
                 .reader(itemReader2)
                 .writer(itemWriter2)
                 .build();
