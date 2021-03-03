@@ -10,6 +10,8 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class BatchConfiguration {
     private final CustomItemWriter customItemWriter;
     private final ItemWriter2 itemWriter2;
     private final ItemReader2 itemReader2;
+    private final ItemProcessor2 itemProcessor2;
 
     @Bean
     public Step step1() {
@@ -35,8 +38,9 @@ public class BatchConfiguration {
     @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .chunk(1)
+                .<List<List<String>>, List<String> >chunk(1)
                 .reader(itemReader2)
+                .processor(itemProcessor2)
                 .writer(itemWriter2)
                 .build();
     }

@@ -16,7 +16,7 @@ import java.util.Queue;
 
 @Component
 @StepScope
-public class ItemReader2 implements ItemReader {
+public class ItemReader2 implements ItemReader<List<List<String>>>{
 
     private final Integer size = 3;
     private Integer start = 0;
@@ -34,23 +34,24 @@ public class ItemReader2 implements ItemReader {
     }
 
     @Override
-    public ItemReader<String> read() {
-        System.out.println(start);
+    public List<List<String>> read() {
 
+       List<List<String>> items = new ArrayList<>();
 
-       List<String> items = new ArrayList<>();
-       items.add("a");
-       items.add("b");
-       items.add("c");
-       items.add("d");
-       items.add("e");
-       items.add("f");
-       items.add("g");
-       items.add("h");
+       List<String> item1 = new ArrayList<>();
+       List<String> item2 = new ArrayList<>();
+
+       item1.add("a");
+       item1.add("b");
+       item2.add("c");
+       item2.add("d");
+
+       items.add(item1);
+       items.add(item2);
 
        if(start != 0) return null;
 
-       /*    < NULL 을 반환하기 위한 뻘-짓 > 
+       /*    < NULL 을 반환하기 위한 뻘-짓 >
            if(start < items.size()){
                end = start + size + 1;
                if(end >= items.size()){
@@ -64,6 +65,6 @@ public class ItemReader2 implements ItemReader {
 
         start++;
 
-        return new ListItemReader<>(items);
+        return items;
     }
 }
